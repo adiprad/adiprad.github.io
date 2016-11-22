@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>imageToGBA</title>
+  </head>
+  <body style="text-align:center;">
+    <script>
+      function cutHex(h) { return (h.charAt(0)=='#') ? h.substring(1,7) : h}
+      function checkBin(n){return/^[01]{1,64}$/.test(n)}
+      function Bin2Hex(n){if(!checkBin(n))return 0;return parseInt(n,2).toString(16)}
+      function PadZero(len, input, str){return Array(len-String(input).length+1).join(str||'0')+input;}
+      function rgbToGBA(r, g, b){
+        // reduce to 5-bit integer values
+        var red = Math.floor(r/8);
+        var green = Math.floor(g/8);
+        var blue = Math.floor(b/8);
+        // convert 5-bit RGB values to binary and combine
+        var bR = PadZero(5,red.toString(2));
+        var bG = PadZero(5,green.toString(2));
+        var bB = PadZero(5,blue.toString(2));
+        var bBGR = bB + bG + bR;
+        // convert final binary value to hex
+        var hfinal = PadZero(4,Bin2Hex(bBGR).toUpperCase());
+        return '0x' + hfinal;
+      }
+
+      function imageToGBA(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                  processPixels(this);
+                };
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      function processPixels(img) {
+        var gbavramcalls = '';
+
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        document.body.appendChild(canvas);
+        var imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
+        var data = imageData.data;
+        for (var i = 0; i < data.length; i += 4) {
+          var x = (i/4) % img.width;
+          var y = Math.floor((i/4) / img.width);
+          gbavramcalls += 'PlotPixel('+x+', '+y+', '+rgbToGBA(data[i],data[i + 1],data[i + 2])+');';
+          if(x + 1 == img.width)
+            gbavramcalls += '\n';
+        }
+        document.querySelector('#gbadata').value = gbavramcalls;
+      }
+    </script>
+    <h1>imageToGBA</h1>
+    <p>Javascript program to convert images to Gameboy Advance VRAM Calls.</p>
+    <p>Works with header <code>plotpixel.h</code> and GBA mode 3.</p>
+    <input type="file" onchange="imageToGBA(this);" accept="image/jpeg, image/png, image/x-MS-bmp"/>
+    <div></div>
+    <textarea id="gbadata" cols="30" rows="10"></textarea>
+  </body>
+</html>
