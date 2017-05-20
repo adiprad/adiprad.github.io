@@ -22,43 +22,11 @@
             <div class="repository-content" style="margin-left:300px;">
               <div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
                 <article class="markdown-body entry-content" itemprop="text" id="grip-content">
-                  <h1>Developing for the GBA: Part 1</h1>
-                  <p>Today, I'll be teaching you how to write ROMs for the GameBoy Advance.</p>
-                  <h3>Installation</h3>
-                  <p>The github repository for my development suite is at <a href="https://github.com/adiprad/gba-development">
-                    https://github.com/adiprad/gba-development</a>.</p>
-                  <p>The README for the repo should explain how to install it on Windows and OSX.</p>
-                  <h3>Setup and First GBA Program!</h3>
-                  <p>To setup a new GBA Project, simply clone the <code>gba_template</code> folder where you want to setup your project.</p>
-                  <p>The file structure should now look like this:
-                  <pre><code>+-- build.bat
-+-- m4.h
-+-- main.c</code></pre></p>
-                  <p>Let me explain:</p>
-                  <p><code>build.bat</code> is a batch file that will compile the main.c file into a GBA ROM (assuming you installed it correctly).
-You can edit this file based on what <code>.c</code> files you are including</p>
-                  <p><code>m4.h</code> is a pretty cool header file that makes it easier to render graphics on the GBA.</p>
-                  <p><code>main.c</code> is the <code>.c</code> file that is the entry point of your program. We will be writing our code in this file (obviously).</p>
-                  <p>So, lets get to writing our GBA rom.</p>
-                  <p>This rom won't be doing anything interesting (just a blank screen).</p>
-                  <p>Write the following into <code>main.c</code>: </p>
-                  <div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>m4.h<span class="pl-pds">"</span></span>
-
-<span class="pl-k">int</span> <span class="pl-en">main</span>() {
-    <span class="pl-c1">m4_init</span>();
-    <span class="pl-k">return</span> <span class="pl-c1">0</span>;
-}</pre></div>
-                  <p>Save the file, and run <code>build.bat</code>.</p>
-                  <p>Assuming everything went fine, run the ROM in your friendly neighborhood emulator.</p>
-                  <p>What emulator should I use, you ask?</p>
-                  <p>I personally recommend VBA-M, which is probably the best GBA Emulator out there.</p>
-                  <p>You can download it from the Chrome App Store, or from the site at <a href="http://vba-m.com/index.php?ind=downloads
-">http://vba-m.com/index.php?ind=downloads
-</a></p>
-                  <p>When you run the ROM in you newfound emulator, it should show a black screen.</p>
-                  <p>If the ROM works, then <b>Congratulations!</b></p>
-                  <p>If it doesn't, then try reinstalling the repository.</p>
-                  <p>In the next article, you'll learn about the GBA graphics system, and how to draw images.</p>
+                  <h1>Installing development tools for the GBA</h1>
+                  <p>Typically, when I am developing for the Game Boy Advance, I use tonclib.</p>
+                  <p>You can install tonc <a href="http://tiny.cc/tonc">here.</a></p>
+                  <p>Select all files in the folder, and download them as a zip file.</p>
+                  
                 </article>
               </div>
             </div>
